@@ -1,11 +1,14 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./globals.css";
-import Login from "./pages/Login";
 
 // Aos
 import AOS from "aos";
 import "aos/dist/aos.css";
 import { useEffect } from "react";
+
+// Pages
+import Login from "./pages/Login";
+import Register from "./pages/Register";
 
 function App() {
   useEffect(() => {
@@ -17,6 +20,7 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Login />} />
+        <Route path="/register" element={<Register />} />
       </Routes>
     </BrowserRouter>
   );

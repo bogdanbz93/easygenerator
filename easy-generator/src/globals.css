@@ -36,3 +36,8 @@ body {
   font-family: QanelasSoft-Bold;
   src: url("assets/fonts/QanelasSoftBold.otf") format("opentype");
 }
+
+/* Buttons */
+.button-orange {
+  @apply text-neutral-800 font-primarySemibold rounded-full bg-white hover:bg-white hover:ring-4 hover:ring-white/20 transition px-5 py-2.5 text-center focus:outline-none disabled:cursor-not-allowed;
+}

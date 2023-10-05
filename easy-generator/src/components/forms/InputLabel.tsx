@@ -6,7 +6,7 @@ interface InputLabelProps extends HTMLProps<HTMLInputElement> {
 
 const InputLabel: React.FC<InputLabelProps> = ({ label, ...inputProps }) => {
   return (
-    <div className="mb-6">
+    <div className="mb-5">
       <label
         htmlFor={inputProps.id}
         className="block mb-2 text-white tracking-wide text-sm"
