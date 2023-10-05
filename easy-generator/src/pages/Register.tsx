@@ -1,5 +1,4 @@
 // Layout
-import { Link } from "react-router-dom";
 import InputLabel from "../components/forms/InputLabel";
 import Layout from "../layouts/AuthLayout";
 
@@ -35,10 +34,6 @@ const Login = () => {
           Register
         </button>
       </form>
-
-      <Link className="text-neutral-400 text-sm text-center mt-5" to="/">
-        Already registered? <span className="text-white">Sign in →</span>
-      </Link>
     </Layout>
   );
 };
