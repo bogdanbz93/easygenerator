@@ -22,7 +22,11 @@ const InputLabel: React.FC<InputLabelProps> = ({
       </label>
       <input
         {...inputProps}
-        className="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg block w-full p-2.5 dark:bg-neutral-900 dark:border-neutral-700 hover:border-neutral-600 focus:border-neutral-500 transition dark:placeholder-gray-400 dark:text-white outline-none"
+        className={`bg-gray-50 border ${
+          message
+            ? "border-rose-500"
+            : "border-neutral-700 hover:border-neutral-600 focus:border-neutral-500"
+        } rounded-lg block w-full p-2.5 bg-neutral-900 transition placeholder-gray-400 text-white outline-none`}
         autoComplete="off"
         autoCorrect="off"
         spellCheck={false}

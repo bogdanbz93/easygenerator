@@ -5,41 +5,32 @@ import Layout from "../layouts/AuthLayout";
 // Form validation imports
 import { useForm, SubmitHandler } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from "yup";
+import { loginSchema } from "../utils/schemas";
 
-interface Login {
+// Animation
+import { Block } from "notiflix/build/notiflix-block-aio";
+
+type LoginValues = {
   email: string;
   password: string;
-}
+};
 
 // Default component
 const Login = () => {
-  // Validation schema
-  const schema = yup.object({
-    email: yup
-      .string()
-      .required("Email address is not completed!")
-      .matches(
-        /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-        "This email address is not valid!"
-      ),
-    password: yup
-      .string()
-      .required("The password is not completed!")
-      .min(8, "The password should contain min. 8 characters."),
-  });
-
-  // Validation form
   const {
     handleSubmit,
     register,
-    formState: { errors, isValid },
-  } = useForm<Login>({
-    resolver: yupResolver(schema),
+    formState: { errors },
+  } = useForm<LoginValues>({
+    resolver: yupResolver(loginSchema),
   });
 
-  const formSubmit: SubmitHandler<any> = (data) => {
+  const formSubmit: SubmitHandler<LoginValues> = (data) => {
     console.log(data);
+    Block.circle(".login-form", {
+      backgroundColor: "rgba(23, 23, 23, 0.75)",
+      svgColor: "#FFF",
+    });
   };
 
   return (
@@ -47,7 +38,10 @@ const Login = () => {
       title="Welcome back"
       subtitle="You don’t need any experience to create engaging e-learning courses. Start creating courses now."
     >
-      <form onSubmit={handleSubmit(formSubmit)}>
+      <form
+        onSubmit={handleSubmit(formSubmit)}
+        className="login-form mt-5 p-5 rounded-xl overflow-hidden bg-neutral-900/50"
+      >
         <InputLabel
           type="email"
           id="email"
@@ -67,12 +61,9 @@ const Login = () => {
           register={{ ...register("password") }}
           message={errors.password?.message?.toString()}
         />
-        <button
-          type="submit"
-          className="button-orange w-full"
-          disabled={!isValid}
-        >
-          Log In
+
+        <button type="submit" className="button-primary w-full">
+          Log in now
         </button>
       </form>
     </Layout>

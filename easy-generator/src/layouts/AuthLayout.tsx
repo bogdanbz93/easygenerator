@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { Link, useLocation } from "react-router-dom";
 
 // Images
 import Logo from "../assets/vectors/Logo.svg";
@@ -6,7 +7,9 @@ import LogoEg from "../assets/vectors/LogoEg.svg";
 import Dots from "../assets/vectors/Dots.svg";
 import Secured from "../assets/vectors/Secured.svg";
 import Gradient from "../assets/vectors/Gradient";
-import { Link, useLocation } from "react-router-dom";
+
+// Animation
+import { Block } from "notiflix";
 
 // Types
 type AuthLayoutProps = {
@@ -24,19 +27,25 @@ const AuthLayout: React.FC<AuthLayoutProps> = ({
   const location = useLocation();
   const { pathname } = location;
 
+  useEffect(() => {
+    Block.init({
+      backgroundColor: "rgba(23, 23, 23, 0.5)",
+    });
+  }, []);
+
   return (
     <div className="overflow-hidden text-white relative bg-pattern flex flex-col min-h-screen w-screen justify-center content-center items-center p-3">
       <a href="https://www.easygenerator.com/" target="_blank">
         <img
           src={LogoEg}
           alt="Easy Generator Logo"
-          className="hidden lg:block lg:absolute my-3 lg:top-0 lg:left-5 w-12 lg:w-14"
+          className="hidden xl:block lg:absolute my-3 lg:top-0 lg:left-5 w-12 lg:w-14"
         />
       </a>
 
       <div
         data-aos="fade"
-        className="grid grid-cols-10 w-full max-w-screen-lg min-h-[37.5rem] bg-neutral-800 overflow-hidden rounded-2xl p-1 gap-x-8 relative m-3"
+        className="grid grid-cols-10 w-full max-w-xl lg:max-w-screen-lg min-h-[37.5rem] bg-neutral-800 overflow-hidden rounded-2xl p-1 gap-x-8 relative m-3"
       >
         {/* Left column */}
         <div
@@ -73,27 +82,31 @@ const AuthLayout: React.FC<AuthLayoutProps> = ({
         <div className="col-span-10 lg:col-span-4 z-10 flex-col flex lg:pl-5 lg:pr-10 lg:py-5 px-5 py-10 justify-center">
           <h1 className="text-2xl">{title}</h1>
           {subtitle && (
-            <p className="text-sm mt-2.5 text-neutral-400">{subtitle}</p>
+            <p className="text-sm mt-2.5 text-neutral-400 max-w-xs">
+              {subtitle}
+            </p>
           )}
 
-          <hr className="my-5 border-neutral-700" />
           {children}
-          <Link
-            className="text-neutral-400 text-sm text-center mt-5"
-            to="/register"
-          >
-            Don’t have an account?{" "}
-            <span className="text-white underline underline-offset-2">
-              Sign up now →
-            </span>
-          </Link>
 
-          <Link className="text-neutral-400 text-sm text-center mt-5" to="/">
-            Already registered?{" "}
-            <span className="text-white underline underline-offset-2">
-              Sign in →
-            </span>
-          </Link>
+          {pathname === "/register" ? (
+            <Link className="text-neutral-400 text-sm text-center mt-5" to="/">
+              Already registered?{" "}
+              <span className="text-white underline underline-offset-2">
+                Sign in →
+              </span>
+            </Link>
+          ) : (
+            <Link
+              className="text-neutral-400 text-sm text-center mt-5"
+              to="/register"
+            >
+              Don’t have an account?{" "}
+              <span className="text-white underline underline-offset-2">
+                Sign up now →
+              </span>
+            </Link>
+          )}
         </div>
       </div>
       <div className="mt-2 mb-5 flex flex-row items-center gap-x-3 px-5">
