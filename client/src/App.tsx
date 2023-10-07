@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./globals.css";
+import PrivateRoutes from "./utils/PrivateRoutes";
 
 // Aos
 import AOS from "aos";
@@ -11,6 +12,9 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Dashboard from "./pages/Dashboard";
 
+// Utils
+import { AuthProvider } from "./utils/AuthContext";
+
 function App() {
   useEffect(() => {
     AOS.init();
@@ -19,11 +23,15 @@ function App() {
 
   return (
     <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/dashboard" element={<Dashboard />} />
-      </Routes>
+      <AuthProvider>
+        <Routes>
+          <Route element={<PrivateRoutes />}>
+            <Route path="/" element={<Dashboard />} />
+          </Route>
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+        </Routes>
+      </AuthProvider>
     </BrowserRouter>
   );
 }

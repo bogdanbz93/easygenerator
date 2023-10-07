@@ -41,3 +41,8 @@ body {
 .button-primary {
   @apply text-neutral-800 font-primarySemibold rounded-full bg-white hover:bg-white hover:ring-4 hover:ring-white/20 transition px-5 py-2.5 text-center focus:outline-none disabled:cursor-not-allowed disabled:opacity-40;
 }
+
+/* Notification */
+.notiflix-report-message {
+  text-align: center !important;
+}

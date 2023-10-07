@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 // Images
 import Logo from "../assets/vectors/Logo.svg";
@@ -10,6 +10,8 @@ import Gradient from "../assets/vectors/Gradient";
 
 // Animation
 import { Block } from "notiflix";
+import { Report } from "notiflix/build/notiflix-report-aio";
+import { useAuth } from "../utils/AuthContext";
 
 // Types
 type AuthLayoutProps = {
@@ -24,14 +26,41 @@ const AuthLayout: React.FC<AuthLayoutProps> = ({
   title,
   subtitle,
 }) => {
+  // Get locations
   const location = useLocation();
   const { pathname } = location;
+  const navigate = useNavigate();
+
+  // Get auth
+  const { loggedIn } = useAuth();
 
   useEffect(() => {
+    if (loggedIn) {
+      navigate("/");
+    } else {
+      initializeBlock();
+      initializeReport();
+    }
+  }, [loggedIn]);
+
+  const initializeBlock = () => {
     Block.init({
       backgroundColor: "rgba(23, 23, 23, 0.5)",
     });
-  }, []);
+  };
+
+  const initializeReport = () => {
+    Report.init({
+      fontFamily: "QanelasSoft-Medium",
+      titleFontSize: "16px",
+      messageFontSize: "14px",
+      failure: {
+        messageColor: "#555",
+        buttonColor: "#fff",
+        backOverlayColor: "rgba(255,85,73,0.2)",
+      },
+    });
+  };
 
   return (
     <div className="overflow-hidden text-white relative bg-pattern flex flex-col min-h-screen w-screen justify-center content-center items-center p-3">
